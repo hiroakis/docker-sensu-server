@@ -5,7 +5,7 @@ It runs redis, rabbitmq-server, sensu-dashboard, sensu-api, sensu-server and ssh
 
 ## Installation
 
-Install from docker index or build you own
+Install from docker index or build from Dockerfile
 
 ```
 docker pull hiroakis/docker-sensu-server
@@ -25,7 +25,7 @@ docker build -t yourname/docker-sensu-server .
 docker run -d -p 10022:22 -p 8080:8080 -p 4567:4567 -p 5671:5671 -p 15672:15672 hiroakis/docker-sensu-server
 ```
 
-## how to access via bowser and sensu-client
+## How to access via bowser and sensu-client
 
 ### rabbitmq console
 
@@ -37,7 +37,10 @@ docker run -d -p 10022:22 -p 8080:8080 -p 4567:4567 -p 5671:5671 -p 15672:15672 
 * http://your-server:8080/
 * id/pwd : admin/secret
 
-### sensu-client configuration example
+### sensu-client
+
+Just run sensu-client process.
+These are example of sensu-client configuration.
 
 * /etc/sensu/config.json
 
@@ -85,6 +88,6 @@ ssh hiroakis@localhost -p 10022
 password: hiroakis
 ```
 
-## Lisence
+## License
 
 MIT
