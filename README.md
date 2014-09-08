@@ -39,8 +39,9 @@ docker run -d -p 10022:22 -p 8080:8080 -p 4567:4567 -p 5671:5671 -p 15672:15672 
 
 ### sensu-client
 
-Just run sensu-client process.
-These are example of sensu-client configuration.
+To run sensu-client on the vm, create client.json (see example below), then just run sensu-client process.
+
+These are examples of sensu-client configuration.
 
 * /etc/sensu/config.json
 
