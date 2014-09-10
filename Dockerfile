@@ -8,6 +8,7 @@ RUN yum install -y passwd
 RUN yum install -y sudo
 RUN yum install -y git
 RUN yum install -y wget
+RUN yum install -y openssl
 RUN yum install -y openssh
 RUN yum install -y openssh-server
 RUN yum install -y openssh-clients
