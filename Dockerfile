@@ -1,4 +1,4 @@
-FROM centos:6.4
+FROM centos:centos6
 
 MAINTAINER Hiroaki Sano <hiroaki.sano.9stories@gmail.com>
 
