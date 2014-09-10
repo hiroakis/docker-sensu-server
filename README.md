@@ -1,7 +1,7 @@
 # docker-sensu-server
 
 CentOS and sensu.
-It runs redis, rabbitmq-server, sensu-dashboard, sensu-api, sensu-server and ssh processes.
+It runs redis, rabbitmq-server, uchiwa, sensu-api, sensu-server and ssh processes.
 
 ## Installation
 
@@ -22,7 +22,7 @@ docker build -t yourname/docker-sensu-server .
 ## Run
 
 ```
-docker run -d -p 10022:22 -p 8080:8080 -p 4567:4567 -p 5671:5671 -p 15672:15672 hiroakis/docker-sensu-server
+docker run -d -p 10022:22 -p 3000:3000 -p 4567:4567 -p 5671:5671 -p 15672:15672 hiroakis/docker-sensu-server
 ```
 
 ## How to access via bowser and sensu-client
@@ -32,14 +32,13 @@ docker run -d -p 10022:22 -p 8080:8080 -p 4567:4567 -p 5671:5671 -p 15672:15672 
 * http://your-server:15672/
 * id/pwd : sensu/password
 
-### sensu dashboard
+### uchiwa
 
-* http://your-server:8080/
-* id/pwd : admin/secret
+* http://your-server:3000/
 
 ### sensu-client
 
-To run sensu-client on the vm, create client.json (see example below), then just run sensu-client process.
+To run sensu-client, create client.json (see example below), then just run sensu-client process.
 
 These are examples of sensu-client configuration.
 
