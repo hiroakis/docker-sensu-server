@@ -1,6 +1,7 @@
 FROM centos:centos6
 
 MAINTAINER Hiroaki Sano <hiroaki.sano.9stories@gmail.com>
+#ARG CACHEBUST=1
 
 # Basic packages
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm \
@@ -19,7 +20,7 @@ RUN yum install -y redis
 # RabbitMQ
 RUN yum install -y erlang \
   && rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc \
-  && rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.4/rabbitmq-server-3.1.4-1.noarch.rpm \
+  && rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.1.4/rabbitmq-server-3.1.4-1.noarch.rpm \
   && git clone git://github.com/joemiller/joemiller.me-intro-to-sensu.git \
   && cd joemiller.me-intro-to-sensu/; ./ssl_certs.sh clean && ./ssl_certs.sh generate \
   && mkdir /etc/rabbitmq/ssl \
@@ -42,8 +43,11 @@ RUN yum install -y uchiwa
 ADD ./files/uchiwa.json /etc/sensu/
 
 # supervisord
-RUN wget http://peak.telecommunity.com/dist/ez_setup.py;python ez_setup.py \
-  && easy_install supervisor
+#RUN wget http://peak.telecommunity.com/dist/ez_setup.py;python ez_setup.py \
+#  && easy_install supervisor
+RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py \ 
+  && pip install supervisor
+
 ADD files/supervisord.conf /etc/supervisord.conf
 
 RUN /etc/init.d/sshd start && /etc/init.d/sshd stop
