@@ -4,7 +4,7 @@ MAINTAINER Hiroaki Sano <hiroaki.sano.9stories@gmail.com>
 #ARG CACHEBUST=1
 
 # Basic packages
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm \
+RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm \
   && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients
 
 # Create user
@@ -18,9 +18,10 @@ RUN useradd hiroakis \
 RUN yum install -y redis
 
 # RabbitMQ
-RUN yum install -y erlang \
+RUN yum install -y socat \
+  && rpm -Uvh https://github.com/rabbitmq/erlang-rpm/releases/download/v20.1.7/erlang-20.1.7-1.el6.x86_64.rpm \
   && rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc \
-  && rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.1.4/rabbitmq-server-3.1.4-1.noarch.rpm \
+  && rpm -Uvh https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.0/rabbitmq-server-3.7.0-1.el6.noarch.rpm \
   && git clone git://github.com/joemiller/joemiller.me-intro-to-sensu.git \
   && cd joemiller.me-intro-to-sensu/; ./ssl_certs.sh clean && ./ssl_certs.sh generate \
   && mkdir /etc/rabbitmq/ssl \
