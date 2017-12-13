@@ -1,7 +1,6 @@
 FROM centos:centos6
 
 MAINTAINER Hiroaki Sano <hiroaki.sano.9stories@gmail.com>
-#ARG CACHEBUST=1
 
 # Basic packages
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm \
@@ -44,8 +43,6 @@ RUN yum install -y uchiwa
 ADD ./files/uchiwa.json /etc/sensu/
 
 # supervisord
-#RUN wget http://peak.telecommunity.com/dist/ez_setup.py;python ez_setup.py \
-#  && easy_install supervisor
 RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py \ 
   && pip install supervisor
 
