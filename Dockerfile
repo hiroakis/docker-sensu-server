@@ -3,8 +3,8 @@ FROM centos:centos6
 MAINTAINER Hiroaki Sano <hiroaki.sano.9stories@gmail.com>
 
 # Basic packages
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm \
-  && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients
+RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm \
+  && yum -y install passwd sudo git wget openssl openssh openssh-server openssh-clients jq
 
 # Create user
 RUN useradd hiroakis \
@@ -17,9 +17,10 @@ RUN useradd hiroakis \
 RUN yum install -y redis
 
 # RabbitMQ
-RUN yum install -y erlang \
+RUN yum install -y socat \
+  && rpm -Uvh https://github.com/rabbitmq/erlang-rpm/releases/download/v20.1.7/erlang-20.1.7-1.el6.x86_64.rpm \
   && rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc \
-  && rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.4/rabbitmq-server-3.1.4-1.noarch.rpm \
+  && rpm -Uvh https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.0/rabbitmq-server-3.7.0-1.el6.noarch.rpm \
   && git clone git://github.com/joemiller/joemiller.me-intro-to-sensu.git \
   && cd joemiller.me-intro-to-sensu/; ./ssl_certs.sh clean && ./ssl_certs.sh generate \
   && mkdir /etc/rabbitmq/ssl \
@@ -42,8 +43,9 @@ RUN yum install -y uchiwa
 ADD ./files/uchiwa.json /etc/sensu/
 
 # supervisord
-RUN wget http://peak.telecommunity.com/dist/ez_setup.py;python ez_setup.py \
-  && easy_install supervisor
+RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py \ 
+  && pip install supervisor
+
 ADD files/supervisord.conf /etc/supervisord.conf
 
 RUN /etc/init.d/sshd start && /etc/init.d/sshd stop
