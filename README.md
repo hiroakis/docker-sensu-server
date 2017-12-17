@@ -3,6 +3,8 @@
 CentOS and sensu.
 It runs redis, rabbitmq-server, uchiwa, sensu-api, sensu-server and ssh processes.
 
+**Note:** This is not for production environment and has security issues.
+
 ## Installation
 
 Install from docker index or build from Dockerfile
